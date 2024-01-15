@@ -58,16 +58,10 @@ class WidgetLogo extends St.Widget {
             schema_id: 'org.gnome.desktop.interface',
         });
 
-        if (this._settings.get_boolean('settingsp')) { 
-        this._settings.connect('changed::logo-file',
-            this._updateLogoP.bind(this));
-        this._settings.connect('changed::logo-file-dark',
-            this._updateLogoP.bind(this));
-        }
-        else {
         this._settings.connect('changed::logo-file',
             this._updateLogo.bind(this));
-        }        
+        this._settings.connect('changed::logo-file-dark',
+            this._updateLogo.bind(this));
         this._settings.connect('changed::logo-size', () => {
             this._updateScale();
             this.queue_relayout();
@@ -75,6 +69,8 @@ class WidgetLogo extends St.Widget {
         this._settings.connect('changed::logo-position',
             this._updatePosition.bind(this));
         this._settings.connect('changed::logo-border',
+            this._updateBorder.bind(this));
+        this._settings.connect('changed::y-logo-border',
             this._updateBorder.bind(this));
         this._settings.connect('changed::logo-opacity',
             this._updateOpacity.bind(this));
@@ -120,35 +116,18 @@ class WidgetLogo extends St.Widget {
         this._bin.connect('resource-scale-changed',
             this._updateLogoTexture.bind(this));
 
-        if (this._settings.get_boolean('settingsp')) {
-        this._updateLogoP();
-        }
-        else {
         this._updateLogo();
-        }
         this._updatePosition();
         this._updateBorder();
         this._updateOpacity();
         this._updateVisibility();
     }
 
-    _updateLogoP() {
+    _updateLogo() {
         const colorScheme = this._ifaceSettings.get_string('color-scheme');
         const fileKey = colorScheme === 'prefer-dark'
             ? 'logo-file-dark'
             : 'logo-file';
-        const filename = this._settings.get_string(fileKey);
-        let file = Gio.File.new_for_commandline_arg(filename);
-        if (this._logoFile && this._logoFile.equal(file))
-            return;
-
-        this._logoFile = file;
-
-        this._updateLogoTexture();
-    }
-    
-    _updateLogo() {
-        const fileKey = 'logo-file';
         const filename = this._settings.get_string(fileKey);
         let file = Gio.File.new_for_commandline_arg(filename);
         if (this._logoFile && this._logoFile.equal(file))
@@ -234,9 +213,11 @@ class WidgetLogo extends St.Widget {
     _updateBorder() {
         const border =
             this._getActorScale() * this._settings.get_uint('logo-border');
+        const yborder =
+            this._getActorScale() * this._settings.get_uint('y-logo-border');
         this._bin.set({
-            margin_top: border,
-            margin_bottom: border,
+            margin_top: yborder,
+            margin_bottom: yborder,
             margin_left: border,
             margin_right: border,
         });

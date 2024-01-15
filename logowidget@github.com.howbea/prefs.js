@@ -192,7 +192,6 @@ class LogoGroup extends Adw.PreferencesGroup {
             this._fileChooser.show();
         });
         filenameDarkRow.add_suffix(this._filenameDarkLabel);
-        if (settings.get_boolean('settingsp'))
         this.add(filenameDarkRow);
 
         const positionModel = new Gio.ListStore({item_type: LogoPosition});
@@ -219,7 +218,8 @@ class LogoGroup extends Adw.PreferencesGroup {
         this._updateSelectedPosition();
 
         this._addScaleRow('Size', 'logo-size', 0.25);
-        this._addScaleRow('Border', 'logo-border', 1.0);
+        this._addScaleRow('X-Border', 'logo-border', 1.0);
+        this._addScaleRow('Y-Border', 'y-logo-border', 1.0);
         this._addScaleRow('Opacity', 'logo-opacity', 1.0);
     }
 
@@ -310,7 +310,7 @@ class OptionsGroup extends Adw.PreferencesGroup {
             Gio.SettingsBindFlags.DEFAULT);
 
         const rowt = new Adw.ActionRow({
-            title: 'Show in workspaceview',
+            title: 'Show in Workspaceview',
             activatable_widget: alwaysShowSwitcht,
         });
         rowt.add_suffix(alwaysShowSwitcht);
