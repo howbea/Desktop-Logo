@@ -1,4 +1,4 @@
-# logo-widget
+# Desktop-Logo
 Add a logo to the desktop.   
-This is a fork of Background Logo extension     
+This is a fork of Background Logo extension.     
 https://extensions.gnome.org/extension/889/background-logo/
