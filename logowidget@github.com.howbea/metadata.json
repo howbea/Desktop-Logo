@@ -7,7 +7,8 @@
   "name": "Desktop Logo",
   "settings-schema": "org.gnome.shell.extensions.logo-widget",
   "shell-version": [
-    "45"
+    "45",
+    "46"
   ],
   "url": "https://github.com/howbea/logo-widget",
   "uuid": "logowidget@github.com.howbea",
