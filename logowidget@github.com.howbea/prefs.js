@@ -310,7 +310,7 @@ class OptionsGroup extends Adw.PreferencesGroup {
             Gio.SettingsBindFlags.DEFAULT);
 
         const rowt = new Adw.ActionRow({
-            title: 'Show in Workspaceview',
+            title: 'Show in Overviw',
             activatable_widget: alwaysShowSwitcht,
         });
         rowt.add_suffix(alwaysShowSwitcht);
